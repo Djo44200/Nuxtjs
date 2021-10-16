@@ -33,6 +33,7 @@ export default {
     '@nuxt/typescript-build',
     // https://go.nuxtjs.dev/vuetify
     '@nuxtjs/vuetify',
+    'nuxt-typed-vuex'
   ],
 
   // Modules: https://go.nuxtjs.dev/config-modules
@@ -43,6 +44,7 @@ export default {
     '@nuxtjs/pwa',
     // https://go.nuxtjs.dev/content
     '@nuxt/content',
+    '@nuxt/typescript-build'
   ],
 
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
@@ -76,8 +78,24 @@ export default {
       }
     }
   },
-
+  typescript: {
+    typeCheck: {
+      eslint: {
+        files: './**/*.{ts,js,vue}'
+      }
+    }
+  },
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {
+  },
+  router: {
+    base:'/commandes',
+    routes: [
+      {
+        path: '/',
+        component: 'pages/commandes.vue',
+        
+      }
+    ]
   }
 }
