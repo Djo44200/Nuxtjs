@@ -53,7 +53,7 @@ export default {
   // PWA module configuration: https://go.nuxtjs.dev/pwa
   pwa: {
     manifest: {
-      lang: 'en'
+      lang: 'fr'
     }
   },
 
@@ -89,7 +89,7 @@ export default {
   build: {
   },
   router: {
-    base:'/commandes',
+    base:'/',
     routes: [
       {
         path: '/',

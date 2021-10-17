@@ -1,17 +1,16 @@
 <template>
-    <div>Commandes
-
-        <div v-for="(produit,index) in produits" :key="index">
-            {{produit.nom}}
-        </div>
-
-
+    <div class="commandes-ctn">
+        <div class="title">Commandes</div>
+    <div class="card-ctn">
+        <produit v-for="(produit,index) in produits" :key="index" class="card"  :nom="produit.nom" :prix="produit.prix" />
+    </div>
     </div>
     
 </template>
 <script>
-
+import  Produit  from "@/components/Produit.vue";
 export default {
+    components:{Produit},
 data(){
     return {
         produits:[
@@ -31,5 +30,33 @@ data(){
 }}
 </script>
 <style lang="scss" scoped>
+.commandes-ctn{
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    .title{
+        display: flex;
+        font-size: 2vw;
+        margin-bottom: 2vh;
+    }
+    .card-ctn{
+        display: flex;
+        flex-direction: row;
+        width: 100%;
+        height: 100%;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        align-content: space-between;
+        align-items: center;
+        .card{
+            margin: 2wv;
+            width: 30vw;
+        }
+      
+    }
+}
 
 </style>
