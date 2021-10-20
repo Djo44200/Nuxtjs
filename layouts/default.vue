@@ -16,6 +16,7 @@
 <script>
 import AppHeader from '@/components/AppHeader.vue'
 export default {
+  name:'default',
   components: { AppHeader },
   data() {
     return {

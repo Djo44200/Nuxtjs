@@ -3,30 +3,57 @@
     <feedback-table :headers="feedbackHeaders" :items="feedBackItems" />
   </div>
 </template>
-<script lang="ts">
-import { Component, Vue } from 'vue-property-decorator'
-import FeedbackTable, { HeadersTable } from '@/components/FeedbackTable.vue'
+<script>
 
-@Component({
-  components: { FeedbackTable },
-})
-export default class Index extends Vue {
-  get feedbackHeaders(): HeadersTable[] {
-    const allFeedback: HeadersTable[] = [
-      {
-        text: 'Commentaire',
-        value: 'comment',
-      },
-      {
-        text: 'Note',
-        value: 'mark',
-      },
-    ]
-    return allFeedback
+import FeedbackTable from '@/components/FeedbackTable.vue'
+
+export default {
+  name: 'index',
+  components:{FeedbackTable},
+  data(){
+    return{
+      feedbackHeaders:[
+        {
+          text: 'Commentaire',
+          value: 'comment',
+        },
+        {
+          text: 'Note',
+          value: 'mark',
+        },
+      ],
+      feedBackItems:[
+          {
+            comment: 'Frozen Yogurt',
+            mark: 159,
+          },
+          {
+            comment: 'Frozen Yogurt',
+            mark: 159,
+          },
+          {
+            comment: 'Frozen Yogurt',
+            mark: 159,
+          },
+          {
+            comment: 'Frozen Yogurt',
+            mark: 159,
+          },
+          {
+            comment: 'Frozen Yogurt',
+            mark: 159,
+          },
+          {
+            comment: 'Frozen Yogurt',
+            mark: 159,
+          },
+          {
+            comment: 'Frozen Yogurt',
+            mark: 159,
+          },
+        ],
+    }
   }
-  //   get feedBackItems(): any[] {
-  //     return []
-  //   }
 }
 </script>
 <style lang="scss" scoped>
