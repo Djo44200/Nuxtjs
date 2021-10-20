@@ -6,7 +6,7 @@
 <script>
 
 import FeedbackTable from '@/components/FeedbackTable.vue'
-
+import axios from "axios";
 export default {
   name: 'index',
   components:{FeedbackTable},
@@ -53,7 +53,11 @@ export default {
           },
         ],
     }
-  }
+  },
+    async mounted() {
+    let res = await axios.get("/api/movie");
+    console.log(res.data.movie);
+  },
 }
 </script>
 <style lang="scss" scoped>

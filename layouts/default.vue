@@ -15,6 +15,11 @@
 
 <script>
 import AppHeader from '@/components/AppHeader.vue'
+import { makeServer } from "~/plugins/mirage.js"
+
+if (process.env.NODE_ENV === 'development') {
+  require('../miragejs/server').makeServer();
+}
 export default {
   name:'default',
   components: { AppHeader },
