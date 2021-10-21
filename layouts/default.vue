@@ -1,8 +1,8 @@
 <template>
   <v-app class="app">
-    <app-header :title="'Dashboard Feedback'" />
+    <app-header class="header" :title="'Dashboard Feedback'" />
     <v-main>
-      <v-container>
+      <v-container class="container-ctn">
         <Nuxt />
       </v-container>
     </v-main>
@@ -15,10 +15,11 @@
 
 <script>
 import AppHeader from '@/components/AppHeader.vue'
+import { makeServer } from "../mirage"
 
-// if (process.env.NODE_ENV === 'development') {
-//   require('../miragejs/server').makeServer();
-// }
+if (process.env.NODE_ENV === "development") {
+  makeServer({ environment: "development" })
+}
 export default {
   name: 'default',
   components: { AppHeader },
@@ -31,9 +32,21 @@ export default {
       miniVariant: false,
       right: false,
       rightDrawer: false,
-      title: 'Restaurant',
+      title: 'Feedback',
     }
   },
 }
 </script>
-<style scoped></style>
+<style scoped>
+.app{
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+}
+.container-ctn{
+  display: flex;
+  width: 100%;
+  height: 100%;
+}
+</style>

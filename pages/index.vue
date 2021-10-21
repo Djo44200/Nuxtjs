@@ -7,9 +7,14 @@
 
 import FeedbackTable from '@/components/FeedbackTable.vue'
 import axios from "axios";
+
 export default {
   name: 'index',
   components:{FeedbackTable},
+  async mounted() {
+    let feedbacksApi = await axios.get("/api/feedbacks");
+    this.feedBackItems = feedbacksApi.data.feedbacks
+  },
   data(){
     return{
       feedbackHeaders:[
@@ -22,49 +27,17 @@ export default {
           value: 'mark',
         },
       ],
-      feedBackItems:[
-          {
-            comment: 'Frozen Yogurt',
-            mark: 159,
-          },
-          {
-            comment: 'Frozen Yogurt',
-            mark: 159,
-          },
-          {
-            comment: 'Frozen Yogurt',
-            mark: 159,
-          },
-          {
-            comment: 'Frozen Yogurt',
-            mark: 159,
-          },
-          {
-            comment: 'Frozen Yogurt',
-            mark: 159,
-          },
-          {
-            comment: 'Frozen Yogurt',
-            mark: 159,
-          },
-          {
-            comment: 'Frozen Yogurt',
-            mark: 159,
-          },
-        ],
+      feedBackItems:[],
     }
   },
-    async mounted() {
-    let res = await axios.get("/api/movie");
-    console.log(res.data.movie);
-  },
+
 }
 </script>
 <style lang="scss" scoped>
 .feedback-ctn {
   display: flex;
   flex-direction: column;
-  align-content: center;
+  justify-content: center;
   align-items: center;
   width: 100%;
   height: 100%;
