@@ -4,19 +4,21 @@
     <v-divider
   vertical
     ></v-divider>
-    <feedback-table class="feedback-table" :headers="feedbackHeaders" :items="feedBackItems" /> 
+    <chart-donuts :options="optionsDonuts" :series="seriesDonuts" /> 
     </div>
     <v-divider></v-divider>
+    
   </div>
 </template>
 <script>
 
 import FeedbackTable from '@/components/FeedbackTable.vue'
+import ChartDonuts from '@/components/ChartDonuts.vue'
 import axios from "axios";
 
 export default {
   name: 'index',
-  components:{FeedbackTable},
+  components:{FeedbackTable,ChartDonuts},
   async mounted() {
     let feedbacksApi = await axios.get("/api/feedbacks");
     this.feedBackItems = feedbacksApi.data.feedbacks
@@ -34,6 +36,8 @@ export default {
         },
       ],
       feedBackItems:[],
+      optionsDonuts:{},
+      seriesDonuts:[50, 50]
     }
   },
 
@@ -46,7 +50,7 @@ export default {
   align-items: center;
   width: 100%;
   height: 100%;
-  margin: 5vh 0vw 0vh 0vw;
+  margin: 2vh 0vw 0vh 0vw;
   .first-slot{
     display: flex;
     justify-content: center;
