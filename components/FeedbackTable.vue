@@ -1,9 +1,20 @@
 <template>
+<div>
   <v-data-table
     :headers="headers"
+    :page.sync="page"
+    hide-default-footer
     :items="items"
     :items-per-page="itemsPage"
+    @page-count="pageCount = $event"
   ></v-data-table>
+  <div class="text-center pt-2">
+      <v-pagination
+        v-model="page"
+        :length="pageCount"
+      ></v-pagination>
+
+    </div></div>
 </template>
 <script>
 
@@ -12,8 +23,14 @@ export default  {
   props: {
     headers: { type: [], default: [] },
     items: { type: [], default: [] },
-    itemsPage:{type:Number, default:5}
+    itemsPage:{type:Number, default:4}
   },
+  data(){
+    return {
+        page: 1,
+        pageCount: 0,
+    }
+  }
 }
 </script>
 <style scoped>

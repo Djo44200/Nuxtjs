@@ -1,6 +1,12 @@
 <template>
   <div class="feedback-ctn">
-    <feedback-table :headers="feedbackHeaders" :items="feedBackItems" />
+    <div class="first-slot"><feedback-table class="feedback-table" :headers="feedbackHeaders" :items="feedBackItems" />
+    <v-divider
+  vertical
+    ></v-divider>
+    <feedback-table class="feedback-table" :headers="feedbackHeaders" :items="feedBackItems" /> 
+    </div>
+    <v-divider></v-divider>
   </div>
 </template>
 <script>
@@ -37,23 +43,21 @@ export default {
 .feedback-ctn {
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
   width: 100%;
   height: 100%;
-  .card-ctn {
+  margin: 5vh 0vw 0vh 0vw;
+  .first-slot{
     display: flex;
-    flex-direction: row;
+    justify-content: center;
     width: 100%;
-    height: 100%;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    align-content: space-between;
-    align-items: center;
-    .card {
-      margin: 2wv;
-      width: 30vw;
-    }
+    height: 50%;
+  .feedback-table{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    margin: 0vh 3vw 0vh 3vw;
+  }
   }
 }
 </style>
