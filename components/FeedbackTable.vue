@@ -1,20 +1,20 @@
 <template>
-<div>
-  <v-data-table
-    :headers="headers"
-    :page.sync="page"
-    hide-default-footer
-    :items="items"
-    :items-per-page="itemsPage"
-    @page-count="pageCount = $event"
-  ></v-data-table>
-  <div class="text-center pt-2">
-      <v-pagination
-        v-model="page"
-        :length="pageCount"
-      ></v-pagination>
+  <div>
+    <v-data-table
+      :headers="headers"
+      :page.sync="page"
+      hide-default-footer
+      :items="items"
+      :items-per-page="itemsPage"
+      @page-count="pageCount = $event"
+    ></v-data-table>
+    <div class="text-center pt-2">
+        <v-pagination
+          v-model="page"
+          :length="pageCount"
+        ></v-pagination>
 
-    </div></div>
+      </div></div>
 </template>
 <script>
 
