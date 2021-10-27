@@ -1,4 +1,4 @@
-# nuxtInit
+# NuxtJs
 
 ## Build Setup
 
