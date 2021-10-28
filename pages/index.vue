@@ -6,8 +6,8 @@
       </div>
       <v-divider class="divider" vertical></v-divider>
       <div class="stats">
-        <stat class="stat" :title="titleStat" :result="0" />
-        <stat class="stat" :title="titleStat" :result="0" />
+        <stat class="stat" :title="'Nombre de Feedback'" :result="feedbackNumber" />
+        <stat class="stat" :title="'Moyenne des Feedback'" :emoji="true" :result="averageFeedback" />
       </div>
     </div>
     <v-divider></v-divider>
@@ -20,12 +20,37 @@
 import FeedbackTable from '@/components/FeedbackTable.vue'
 import ChartDonuts from '@/components/ChartDonuts.vue'
 import Stat from '@/components/Stat.vue'
+import FeedbackService from '@/services/FeedbackService'
 
 export default {
   name: 'index',
   components: { FeedbackTable, ChartDonuts, Stat },
   async mounted() {
-    this.feedBackItems = await this.$getFeedbackList()
+    this.averageNoteFeedback()
+  },
+  async asyncData({ error }) {
+    try {
+      const { data } = await FeedbackService.getAllFeedback();
+      return {
+        feedBackItems: data.feedbacks,
+        feedbackNumber: data.feedbacks.length,
+      };
+    } catch (e) {
+      error({
+        statusCode: 503,
+        message: "Oops !"
+      });
+    }
+  },
+  methods: {
+    averageNoteFeedback() {
+      let total = 0;
+      this.feedBackItems.forEach(feedback => {
+        total = total + feedback.mark
+      });
+      this.averageFeedback = Math.round(total/this.feedbackNumber)
+    }
+
   },
   data() {
     return {
@@ -39,10 +64,10 @@ export default {
           value: 'mark',
         },
       ],
+      averageFeedback:0,
       feedBackItems: [],
       optionsDonuts: {},
       seriesDonuts: [50, 50],
-      titleStat: 'Nombre de Feedback',
       feedbackNumber: 0,
     }
   },

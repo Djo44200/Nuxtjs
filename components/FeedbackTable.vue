@@ -1,6 +1,7 @@
 <template>
   <div class="table">
     <v-data-table
+      class="mx-auto"
       :headers="headers"
       :page.sync="page"
       hide-default-footer
