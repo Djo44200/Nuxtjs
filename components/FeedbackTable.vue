@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="table">
     <v-data-table
       :headers="headers"
       :page.sync="page"
@@ -9,33 +9,30 @@
       @page-count="pageCount = $event"
     ></v-data-table>
     <div class="text-center pt-2">
-        <v-pagination
-          v-model="page"
-          :length="pageCount"
-        ></v-pagination>
-
-      </div></div>
+      <v-pagination v-model="page" :length="pageCount"></v-pagination>
+    </div>
+  </div>
 </template>
 <script>
-
-export default  {
+export default {
   name: 'FeedbackTable',
   props: {
     headers: { type: [], default: [] },
     items: { type: [], default: [] },
-    itemsPage:{type:Number, default:4}
+    itemsPage: { type: Number, default: 4 },
   },
-  data(){
+  data() {
     return {
-        page: 1,
-        pageCount: 0,
+      page: 1,
+      pageCount: 0,
     }
-  }
+  },
 }
 </script>
 <style scoped>
-.elevation-1 {
+.table {
   display: flex;
+  flex-direction: column;
   width: 100%;
   height: 100%;
 }
