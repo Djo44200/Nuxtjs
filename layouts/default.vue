@@ -15,10 +15,10 @@
 
 <script>
 import AppHeader from '@/components/AppHeader.vue'
-import { makeServer } from "../mirage"
+import { makeServer } from '../mirage'
 
-if (process.env.NODE_ENV === "development") {
-  makeServer({ environment: "development" })
+if (process.env.NODE_ENV === 'development') {
+  makeServer({ environment: 'development' })
 }
 export default {
   name: 'default',
@@ -38,13 +38,13 @@ export default {
 }
 </script>
 <style scoped>
-.app{
+.app {
   display: flex;
   flex-direction: column;
   width: 100%;
   height: 100%;
 }
-.container-ctn{
+.container-ctn {
   display: flex;
   width: 100%;
   height: 100%;
