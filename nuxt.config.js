@@ -2,6 +2,7 @@ import colors from 'vuetify/es5/util/colors'
 
 export default {
   ssr: true,
+  // eslint-disable-next-line no-undef
   mode: process.env.NODE_ENV === 'development' ? 'spa' : 'universal',
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
@@ -20,7 +21,7 @@ export default {
   css: [],
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
-  plugins: [],
+  plugins: [{ src: '~/plugins/vuetify.js' }],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
   components: true,

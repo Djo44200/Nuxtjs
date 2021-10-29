@@ -1,56 +1,82 @@
 <template>
   <div class="feedback-ctn">
     <div class="first-slot">
-      <div class="feedback-table">
-        <feedback-table :headers="feedbackHeaders" :items="feedBackItems" />
-      </div>
-      <v-divider class="divider" vertical></v-divider>
-      <div class="stats">
-        <stat class="stat" :title="'Nombre de Feedback'" :result="feedbackNumber" />
-        <stat class="stat" :title="'Moyenne des Feedback'" :emoji="true" :result="averageFeedback" />
+      <div class="list-ctn">
+        <app-title class="title-list" :title="'Liste des feedback'" />
+        <div class="feedback-table">
+          <feedback-table :headers="feedbackHeaders" :items="feedBackItems" />
+        </div>
       </div>
     </div>
     <v-divider></v-divider>
     <div class="second-slot">
+      <div class="donut-ctn">
+        <app-title class="title-list" :title="'Statistiques'" />
+        <div class="donut-chart">
+          <chart-donuts :options="optionsDonuts" :series="seriesDonuts" />
+        </div>
+      </div>
       <v-divider vertical></v-divider>
+      <div class="all-stats">
+        <app-title class="title-list" :title="'Météo'" />
+        <div class="stats-ctn">
+          <stat
+            class="stat"
+            :title="'Nombre de Feedback'"
+            :result="feedbackNumber"
+          />
+          <stat
+            class="stat"
+            :title="'Moyenne des Feedback'"
+            :emoji="true"
+            :result="averageFeedback"
+          />
+        </div>
+      </div>
     </div>
   </div>
 </template>
 <script>
-import FeedbackTable from '@/components/FeedbackTable.vue'
-import ChartDonuts from '@/components/ChartDonuts.vue'
-import Stat from '@/components/Stat.vue'
 import FeedbackService from '@/services/FeedbackService'
 
 export default {
   name: 'index',
-  components: { FeedbackTable, ChartDonuts, Stat },
   async mounted() {
     this.averageNoteFeedback()
+    this.countNote()
   },
   async asyncData({ error }) {
     try {
-      const { data } = await FeedbackService.getAllFeedback();
+      const { data } = await FeedbackService.getAllFeedback()
       return {
         feedBackItems: data.feedbacks,
         feedbackNumber: data.feedbacks.length,
-      };
+      }
     } catch (e) {
       error({
         statusCode: 503,
-        message: "Oops !"
-      });
+        message: 'Oops !',
+      })
     }
   },
   methods: {
     averageNoteFeedback() {
-      let total = 0;
-      this.feedBackItems.forEach(feedback => {
+      let total = 0
+      this.feedBackItems.forEach((feedback) => {
         total = total + feedback.mark
-      });
-      this.averageFeedback = Math.round(total/this.feedbackNumber)
-    }
-
+      })
+      this.averageFeedback = Math.round(total / this.feedbackNumber)
+    },
+    countNote() {
+      let array = []
+      for (let i = 0; i <= 5; i++) {
+        const number = parseInt(
+          this.feedBackItems.filter((feedback) => feedback.mark === i).length
+        )
+        array.push(number)
+      }
+      this.seriesDonuts = array
+    },
   },
   data() {
     return {
@@ -64,10 +90,19 @@ export default {
           value: 'mark',
         },
       ],
-      averageFeedback:0,
+      averageFeedback: 0,
       feedBackItems: [],
-      optionsDonuts: {},
-      seriesDonuts: [50, 50],
+      optionsDonuts: {
+        labels: ['0', '1', '2', '3', '4', '5'],
+        plotOptions: {
+          pie: {
+            donut: {
+              size: '60%',
+            },
+          },
+        },
+      },
+      seriesDonuts: [],
       feedbackNumber: 0,
     }
   },
@@ -79,28 +114,29 @@ export default {
   flex-direction: column;
   width: 100%;
   height: 100%;
-  padding: 2vh 0vw 0vh 0vw;
+  padding-top: 2vh;
   .first-slot {
     display: flex;
     justify-content: center;
     width: 100%;
     height: 50%;
-    .feedback-table,
-    .stats {
-      padding: 0vh 3vw 0vh 3vw;
-      width: 45%;
-      height: 50%;
-    }
-    .stats {
+    .list-ctn {
       display: flex;
-      align-items: center;
-      justify-items: center;
-      .stat {
-        padding: 1vw;
+      flex-direction: column;
+      justify-content: center;
+      width: 100%;
+      padding-left: 3vw;
+      .title-list {
+        width: 100%;
+        height: 10%;
+        justify-content: flex-start;
       }
-    }
-    .divider {
-      width: 10%;
+      .feedback-table {
+        width: 100%;
+        height: 100%;
+        justify-content: center;
+        padding: 0vh 3vw 3vh 0vw;
+      }
     }
   }
   .second-slot {
@@ -108,6 +144,49 @@ export default {
     justify-content: center;
     width: 100%;
     height: 50%;
+    .donut-ctn {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      width: 50%;
+      height: 100%;
+      padding-left: 3vw;
+      .title-list {
+        width: 100%;
+        justify-content: flex-start;
+      }
+      .donut-chart {
+        display: flex;
+        align-items: center;
+        justify-items: center;
+        justify-content: center;
+        width: 50%;
+        height: 100%;
+      }
+    }
+    .all-stats {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      width: 50%;
+      padding-left: 3vw;
+      .title-list {
+        width: 100%;
+        justify-content: flex-start;
+      }
+      .stats-ctn {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        height: 100%;
+        justify-content: center;
+        align-items: center;
+        .stat {
+          padding: 0vh 3vw 3vh 0vw;
+        }
+      }
+    }
   }
 }
 </style>

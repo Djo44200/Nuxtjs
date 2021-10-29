@@ -1,7 +1,7 @@
 <template>
-  <div class="table">
+  <div class="table-ctn">
     <v-data-table
-      class="mx-auto"
+      class="table"
       :headers="headers"
       :page.sync="page"
       hide-default-footer
@@ -9,7 +9,7 @@
       :items-per-page="itemsPage"
       @page-count="pageCount = $event"
     ></v-data-table>
-    <div class="text-center pt-2">
+    <div class="pagination text-center pt-2">
       <v-pagination v-model="page" :length="pageCount"></v-pagination>
     </div>
   </div>
@@ -30,11 +30,20 @@ export default {
   },
 }
 </script>
-<style scoped>
-.table {
+<style lang="scss" scoped>
+.table-ctn {
   display: flex;
   flex-direction: column;
   width: 100%;
   height: 100%;
+  .table {
+    width: 100%;
+    height: 100%;
+  }
+  .pagination {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
 }
 </style>
