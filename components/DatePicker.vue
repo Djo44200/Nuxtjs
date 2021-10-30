@@ -34,17 +34,18 @@ export default {
   name: 'DatePicker',
   props: {
     title: { type: String, default: '' },
+    minDate: {type:String, default:''},
+    maxDate:{type:String, default:''}
   },
   data() {
     return {
       fromDateMenu: false,
       fromDateVal: null,
-      minDate: '2019-07-04',
-      maxDate: '2029-08-30',
     }
   },
   computed: {
     fromDateDisp() {
+      this.$emit('newDatePicker', this.fromDateVal)
       return this.fromDateVal
       // format date, apply validations, etc. Example below.
       // return this.fromDateVal ? this.formatDate(this.fromDateVal) : "";
