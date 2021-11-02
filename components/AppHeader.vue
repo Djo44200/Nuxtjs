@@ -40,11 +40,5 @@ export default {
       padding-left: 1vw;
     }
   }
-  // .date-picker {
-  //   display: flex;
-  //   align-items: center;
-  //   justify-content: space-around;
-  //   width: 20%;
-  // }
 }
 </style>
