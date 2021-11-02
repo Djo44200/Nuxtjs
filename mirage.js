@@ -15,6 +15,16 @@ export function makeServer({ environment = 'development' } = {}) {
         date: new Date(),
       })
       server.create('feedback', {
+        comment: 'Parfait, très beau site',
+        mark: 5,
+        date: new Date('30/11/2020'),
+      })
+      server.create('feedback', {
+        comment: 'Parfait, très beau site',
+        mark: 5,
+        date: new Date('30/10/2018'),
+      })
+      server.create('feedback', {
         comment: 'Rien à dire',
         mark: 4,
         date: new Date('30/12/2020'),
@@ -37,7 +47,7 @@ export function makeServer({ environment = 'development' } = {}) {
       server.create('feedback', {
         comment: 'Médiocre',
         mark: 5,
-        date: new Date('7/04/2021'),
+        date: new Date('7/04/2019'),
       })
       server.create('feedback', {
         comment: 'Médiocre',

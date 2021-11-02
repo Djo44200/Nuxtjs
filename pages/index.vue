@@ -37,27 +37,35 @@
   </div>
 </template>
 <script>
-import FeedbackService from '@/services/FeedbackService'
+import { mapGetters } from 'vuex'
 
 export default {
   name: 'index',
   async mounted() {
+    await this.$store.dispatch('feedback/changeFeedbackItems')
     this.averageNoteFeedback()
     this.countNote()
   },
-  async asyncData({ error }) {
-    try {
-      const { data } = await FeedbackService.getAllFeedback()
-      return {
-        feedBackItems: data.feedbacks,
-        feedbackNumber: data.feedbacks.length,
-      }
-    } catch (e) {
-      error({
-        statusCode: 503,
-        message: 'Oops !',
-      })
-    }
+  // async asyncData({ error }) {
+  //   try {
+  //     const { data } = await FeedbackService.getAllFeedback()
+  //     return {
+  //       feedBackItems: data.feedbacks,
+  //       feedbackNumber: data.feedbacks.length,
+  //     }
+  //   } catch (e) {
+  //     error({
+  //       statusCode: 503,
+  //       message: 'Oops !',
+  //     })
+  //   }
+  // },
+
+  computed: {
+    ...mapGetters({
+      feedBackItems: 'feedback/getAllFeedback',
+      feedbackNumber: 'feedback/getFeedbackLength',
+    }),
   },
   methods: {
     averageNoteFeedback() {
@@ -91,7 +99,6 @@ export default {
         },
       ],
       averageFeedback: 0,
-      feedBackItems: [],
       optionsDonuts: {
         labels: ['0', '1', '2', '3', '4', '5'],
         plotOptions: {
@@ -103,7 +110,6 @@ export default {
         },
       },
       seriesDonuts: [],
-      feedbackNumber: 0,
     }
   },
 }
