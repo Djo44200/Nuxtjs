@@ -1,42 +1,58 @@
 <template>
   <div class="app-header-ctn">
     <v-app-bar dense>
-      <span class="title">{{ title }}</span>
+      <div class="title">
+        <span>{{ title }}</span>
+      </div>
       <div class="date-ctn">
-        <date-picker :minDate="threeYearsAgo" :maxDate="now" @newDatePicker="firstDate" :title="'Date de début'" class="date-picker" />
-        <date-picker :minDate="minSecondDate" :maxDate="now" @newDatePicker="seconDate" :title="'Date de fin'" class="date-picker" />
+        <date-picker
+          :minDate="threeYearsAgo"
+          :maxDate="now"
+          @newDatePicker="firstDatePicker"
+          :title="'Date de début'"
+          class="date-picker"
+        />
+        <date-picker
+          :minDate="minSecondDate"
+          :maxDate="now"
+          @newDatePicker="secondDatePicker"
+          :title="'Date de fin'"
+          class="date-picker"
+        />
       </div>
     </v-app-bar>
   </div>
 </template>
 
 <script>
-import {threeYearsAgo,dateToString} from'@/utils/dayJs'
+import { threeYearsAgo, dateToString, dateStringToDate } from '@/utils/dayJs'
 export default {
   name: 'AppHeader',
-  data(){
+  data() {
     return {
-      minSecondDate:null,
-      firstDate:null,
-      secondDate:null,
+      minSecondDate: null,
     }
   },
-  computed:{
-    threeYearsAgo(){
+  computed: {
+    threeYearsAgo() {
       return threeYearsAgo(new Date(), 'YYYY-MM-DD')
     },
-    now(){
+    now() {
       return dateToString(new Date(), 'YYYY-MM-DD')
     },
   },
-  methods:{
-    firstDate(date){
-      this.firstDate = date;
-      this.minSecondDate = date?date:'';
+  methods: {
+    firstDatePicker(newDate) {
+      if (newDate) {
+        this.$store.commit('changeStartPeriod', new Date(newDate))
+        this.minSecondDate = newDate ? newDate : ''
+      }
     },
-    secondDate(date){
-      this.secondDate = date
-    }
+    secondDatePicker(newDate) {
+      if (newDate) {
+        this.$store.commit('changeEndPeriod', new Date(newDate))
+      }
+    },
   },
   props: {
     title: { type: String, default: '' },
@@ -62,16 +78,9 @@ export default {
     align-items: center;
     justify-content: space-around;
     width: 50%;
-    padding-top: 3vh;
     .date-picker {
       padding-left: 1vw;
     }
   }
-  // .date-picker {
-  //   display: flex;
-  //   align-items: center;
-  //   justify-content: space-around;
-  //   width: 20%;
-  // }
 }
 </style>

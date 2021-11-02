@@ -10,8 +10,8 @@
       min-width="290px"
     >
       <template v-slot:activator="{ on }">
+        <span class="title-datepicker">{{ title }} : </span>
         <v-text-field
-          :label="title"
           class="input-date"
           readonly
           :value="fromDateDisp"
@@ -34,8 +34,8 @@ export default {
   name: 'DatePicker',
   props: {
     title: { type: String, default: '' },
-    minDate: {type:String, default:''},
-    maxDate:{type:String, default:''}
+    minDate: { type: String, default: '' },
+    maxDate: { type: String, default: '' },
   },
   data() {
     return {
@@ -53,10 +53,20 @@ export default {
   },
 }
 </script>
-<style lang="scss" scoped>
+<style lang="scss">
 .date-picker-ctn {
   display: flex;
   width: 100%;
+  align-items: center;
+  justify-content: center;
+  input {
+    padding-top: 3vh !important;
+  }
+  .title-datepicker {
+    display: flex;
+    align-items: center;
+    margin-right: 1vw;
+  }
   .input-date {
     max-width: 50%;
     margin-top: 0px !important;
