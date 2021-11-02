@@ -8,6 +8,10 @@ export const actions = {
     const { data } = await FeedbackService.getAllFeedback()
     state.commit('feedbackItems', data.feedbacks)
   },
+  async changeDateFeedbackItems(state, date) {
+    const { data } = await FeedbackService.getFeedbackByDate(date)
+    state.commit('feedbackItems', data.feedbacks)
+  },
 }
 export const mutations = {
   feedbackItems(state, allFeedback) {

@@ -103,8 +103,21 @@ export function makeServer({ environment = 'development' } = {}) {
 
     routes() {
       this.namespace = 'api'
-      this.get('/feedbacks', (schema) => {
+      this.get('feedbacks', (schema) => {
         return schema.feedbacks.all()
+      })
+      this.get('/feedbacks/date/:start/:end', (schema, request) => {
+        let start = request.params.start
+        let end = request.params.end
+        return schema.feedbacks.all().filter((item) => {
+          let date = new Date(item.date)
+          console.log(date)
+          console.log(start)
+          console.log(end)
+          console.log('date >= start', date >= start)
+          console.log('date <= end', date <= end)
+          return date >= start && date <= end
+        })
       })
     },
   })
