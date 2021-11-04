@@ -1,5 +1,5 @@
 export const state = () => ({
-  startPeriod: new Date(),
+  startPeriod: new Date(new Date().setFullYear(new Date().getFullYear() - 3)),
   endPeriod: new Date(),
 })
 

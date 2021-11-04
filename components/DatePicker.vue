@@ -36,19 +36,19 @@ export default {
     title: { type: String, default: '' },
     minDate: { type: String, default: '' },
     maxDate: { type: String, default: '' },
+    defaultValue: { type: String, default: '' },
   },
   data() {
     return {
       fromDateMenu: false,
-      fromDateVal: null,
+      fromDateVal: this.defaultValue,
     }
   },
+
   computed: {
     fromDateDisp() {
       this.$emit('newDatePicker', this.fromDateVal)
       return this.fromDateVal
-      // format date, apply validations, etc. Example below.
-      // return this.fromDateVal ? this.formatDate(this.fromDateVal) : "";
     },
   },
 }

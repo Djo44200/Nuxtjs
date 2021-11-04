@@ -42,29 +42,10 @@ import { mapGetters } from 'vuex'
 export default {
   name: 'index',
   async mounted() {
-    const date = {
-      start: this.$store.state.startPeriod,
-      end: this.$store.state.endPeriod,
-    }
     await this.$store.dispatch('feedback/changeFeedbackItems')
-    await this.$store.dispatch('feedback/changeDateFeedbackItems', date)
     this.averageNoteFeedback()
     this.countNote()
   },
-  // async asyncData({ error }) {
-  //   try {
-  //     const { data } = await FeedbackService.getAllFeedback()
-  //     return {
-  //       feedBackItems: data.feedbacks,
-  //       feedbackNumber: data.feedbacks.length,
-  //     }
-  //   } catch (e) {
-  //     error({
-  //       statusCode: 503,
-  //       message: 'Oops !',
-  //     })
-  //   }
-  // },
 
   computed: {
     ...mapGetters({

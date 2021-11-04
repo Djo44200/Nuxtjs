@@ -7,3 +7,8 @@ export function threeYearsAgo(date, format) {
 export function dateToString(date, format) {
   return dayjs(date).format(format)
 }
+
+export function stringToDate(date) {
+  console.log(dayjs(date).format())
+  return dayjs(date).format()
+}

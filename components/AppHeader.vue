@@ -9,6 +9,7 @@
           :minDate="threeYearsAgo"
           :maxDate="now"
           @newDatePicker="firstDatePicker"
+          :defaultValue="defaultFirstDate"
           :title="'Date de début'"
           class="date-picker"
         />
@@ -16,6 +17,7 @@
           :minDate="minSecondDate"
           :maxDate="now"
           @newDatePicker="secondDatePicker"
+          :defaultValue="defaultSecondDate"
           :title="'Date de fin'"
           class="date-picker"
         />
@@ -25,7 +27,7 @@
 </template>
 
 <script>
-import { threeYearsAgo, dateToString, dateStringToDate } from '@/utils/dayJs'
+import { threeYearsAgo, dateToString } from '@/utils/dayJs'
 export default {
   name: 'AppHeader',
   data() {
@@ -40,16 +42,34 @@ export default {
     now() {
       return dateToString(new Date(), 'YYYY-MM-DD')
     },
+    defaultFirstDate() {
+      return dateToString(this.$store.state.startPeriod, 'YYYY-MM-DD')
+    },
+    defaultSecondDate() {
+      return dateToString(this.$store.state.endPeriod, 'YYYY-MM-DD')
+    },
   },
   methods: {
-    firstDatePicker(newDate) {
-      if (newDate) {
+    async firstDatePicker(newDate) {
+      if (
+        newDate !== dateToString(this.$store.state.startPeriod, 'YYYY-MM-DD')
+      ) {
+        const date = {
+          start: dateToString(newDate, 'YYYY-MM-DD'),
+          end: dateToString(this.$store.state.endPeriod, 'YYYY-MM-DD'),
+        }
         this.$store.commit('changeStartPeriod', new Date(newDate))
+        await this.$store.dispatch('feedback/changeDateFeedbackItems', date)
         this.minSecondDate = newDate ? newDate : ''
       }
     },
-    secondDatePicker(newDate) {
-      if (newDate) {
+    async secondDatePicker(newDate) {
+      if (newDate !== dateToString(this.$store.state.endPeriod, 'YYYY-MM-DD')) {
+        const date = {
+          start: dateToString(this.$store.state.starPeriod, 'YYYY-MM-DD'),
+          end: dateToString(newDate, 'YYYY-MM-DD'),
+        }
+        await this.$store.dispatch('feedback/changeDateFeedbackItems', date)
         this.$store.commit('changeEndPeriod', new Date(newDate))
       }
     },
