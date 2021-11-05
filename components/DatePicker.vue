@@ -10,7 +10,7 @@
       min-width="290px"
     >
       <template v-slot:activator="{ on }">
-        <span class="title-datePicker">{{ title }} :</span>
+        <span class="title-datepicker">{{ title }} : </span>
         <v-text-field
           class="input-date"
           readonly
@@ -34,21 +34,21 @@ export default {
   name: 'DatePicker',
   props: {
     title: { type: String, default: '' },
+    minDate: { type: String, default: '' },
+    maxDate: { type: String, default: '' },
+    defaultValue: { type: String, default: '' },
   },
   data() {
     return {
       fromDateMenu: false,
-      fromDateVal: null,
-      minDate: '2019-07-04',
-      maxDate: '2029-08-30',
+      fromDateVal: this.defaultValue,
     }
   },
+
   computed: {
     fromDateDisp() {
-      this.$emit('')
+      this.$emit('newDatePicker', this.fromDateVal)
       return this.fromDateVal
-      // format date, apply validations, etc. Example below.
-      // return this.fromDateVal ? this.formatDate(this.fromDateVal) : "";
     },
   },
 }
@@ -58,15 +58,18 @@ export default {
   display: flex;
   width: 100%;
   align-items: center;
-  .title-datePicker {
+  justify-content: center;
+  input {
+    padding-top: 3vh !important;
+  }
+  .title-datepicker {
     display: flex;
     align-items: center;
-    padding-right: 1vw;
-    font-size: 1vw;
+    margin-right: 1vw;
   }
   .input-date {
     max-width: 50%;
-    margin: auto !important;
+    margin-top: 0px !important;
   }
 }
 </style>
