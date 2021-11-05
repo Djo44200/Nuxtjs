@@ -48,7 +48,7 @@ export default {
           object.mood = 'mdi-emoticon-excited-outline'
           break
         default:
-          object.color = 'green'
+          object.color = 'transparent'
           object.mood = 'mdi-emoticon-devil-outline'
           break
       }
