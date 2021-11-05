@@ -28,14 +28,24 @@
 
 <script>
 import { threeYearsAgo, dateToString } from '@/utils/dayJs'
+import { mapState } from 'vuex'
+
 export default {
   name: 'AppHeader',
   data() {
     return {
-      minSecondDate: null,
+      minSecondDate: threeYearsAgo(),
     }
   },
   computed: {
+    ...mapState({
+      stateStartPeriod(state) {
+        return state.startPeriod
+      },
+      stateEndPeriod(state) {
+        return state.endPeriod
+      },
+    }),
     threeYearsAgo() {
       return threeYearsAgo(new Date(), 'YYYY-MM-DD')
     },
@@ -43,20 +53,18 @@ export default {
       return dateToString(new Date(), 'YYYY-MM-DD')
     },
     defaultFirstDate() {
-      return dateToString(this.$store.state.startPeriod, 'YYYY-MM-DD')
+      return dateToString(this.stateStartPeriod, 'YYYY-MM-DD')
     },
     defaultSecondDate() {
-      return dateToString(this.$store.state.endPeriod, 'YYYY-MM-DD')
+      return dateToString(this.stateEndPeriod, 'YYYY-MM-DD')
     },
   },
   methods: {
     async firstDatePicker(newDate) {
-      if (
-        newDate !== dateToString(this.$store.state.startPeriod, 'YYYY-MM-DD')
-      ) {
+      if (newDate !== dateToString(this.stateStartPeriod, 'YYYY-MM-DD')) {
         const date = {
           start: dateToString(newDate, 'YYYY-MM-DD'),
-          end: dateToString(this.$store.state.endPeriod, 'YYYY-MM-DD'),
+          end: dateToString(this.stateEndPeriod, 'YYYY-MM-DD'),
         }
         this.$store.commit('changeStartPeriod', new Date(newDate))
         await this.$store.dispatch('feedback/changeDateFeedbackItems', date)
@@ -64,13 +72,14 @@ export default {
       }
     },
     async secondDatePicker(newDate) {
-      if (newDate !== dateToString(this.$store.state.endPeriod, 'YYYY-MM-DD')) {
+      if (newDate !== dateToString(this.stateEndPeriod, 'YYYY-MM-DD')) {
         const date = {
-          start: dateToString(this.$store.state.starPeriod, 'YYYY-MM-DD'),
+          start: dateToString(this.stateStartPeriod, 'YYYY-MM-DD'),
           end: dateToString(newDate, 'YYYY-MM-DD'),
         }
-        await this.$store.dispatch('feedback/changeDateFeedbackItems', date)
+
         this.$store.commit('changeEndPeriod', new Date(newDate))
+        await this.$store.dispatch('feedback/changeDateFeedbackItems', date)
       }
     },
   },

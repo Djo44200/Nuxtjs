@@ -46,6 +46,12 @@ export default {
     this.averageNoteFeedback()
     this.countNote()
   },
+  watch: {
+    feedBackItems: function () {
+      this.countNote()
+      this.averageNoteFeedback()
+    },
+  },
 
   computed: {
     ...mapGetters({
