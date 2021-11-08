@@ -1,8 +1,9 @@
 <template>
-  <div>
+  <div class="chart">
     <VueApexCharts
       width="350"
       type="donut"
+      class="donut-ctn"
       :options="options"
       :series="series"
     ></VueApexCharts>
@@ -23,3 +24,14 @@ export default {
   },
 }
 </script>
+
+<style lang="scss" scoped>
+.chart {
+  display: flex;
+  .donut-ctn {
+    @media (max-width: 500px) {
+      font-size: 50%;
+    }
+  }
+}
+</style>

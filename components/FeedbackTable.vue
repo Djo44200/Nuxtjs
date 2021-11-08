@@ -5,6 +5,7 @@
       :headers="headers"
       :page.sync="page"
       hide-default-footer
+      mobile-breakpoint="0"
       :items="items"
       :items-per-page="itemsPage"
       @page-count="pageCount = $event"

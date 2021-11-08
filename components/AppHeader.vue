@@ -10,7 +10,7 @@
           :maxDate="now"
           @newDatePicker="firstDatePicker"
           :defaultValue="defaultFirstDate"
-          :title="'Date de début'"
+          :title="'Début'"
           class="date-picker"
         />
         <date-picker
@@ -18,7 +18,7 @@
           :maxDate="now"
           @newDatePicker="secondDatePicker"
           :defaultValue="defaultSecondDate"
-          :title="'Date de fin'"
+          :title="'Fin'"
           class="date-picker"
         />
       </div>
@@ -101,6 +101,12 @@ export default {
     align-items: center;
     justify-content: flex-start;
     width: 50%;
+    @media (max-width: 500px) {
+      width: 40%;
+      span {
+        font-size: 3vw;
+      }
+    }
   }
   .date-ctn {
     display: flex;
@@ -109,6 +115,9 @@ export default {
     width: 50%;
     .date-picker {
       padding-left: 1vw;
+    }
+    @media (max-width: 500px) {
+      width: 60%;
     }
   }
 }

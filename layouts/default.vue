@@ -1,13 +1,13 @@
 <template>
   <v-app class="app">
     <app-header class="header" :title="'Dashboard Feedback'" />
-    <v-main>
+    <v-main class="main">
       <v-container class="container-ctn">
         <Nuxt />
       </v-container>
     </v-main>
 
-    <v-footer :absolute="!fixed" app>
+    <v-footer :absolute="!fixed" app class="footer">
       <span>&copy; {{ new Date().getFullYear() }}</span>
     </v-footer>
   </v-app>
@@ -43,6 +43,10 @@ export default {
   flex-direction: column;
   width: 100%;
   height: 100%;
+}
+.main,
+.footer {
+  background: #f8f8f8;
 }
 .container-ctn {
   display: flex;

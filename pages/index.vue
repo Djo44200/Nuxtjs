@@ -92,10 +92,11 @@ export default {
       ],
       averageFeedback: 0,
       optionsDonuts: {
-        labels: ['0', '1', '2', '3', '4', '5'],
+        labels: ['Note 0', 'Note 1', 'Note 2', 'Note 3', 'Note 4', 'Note 5'],
         plotOptions: {
           pie: {
             donut: {
+              width: 350,
               size: '60%',
             },
           },
@@ -150,6 +151,7 @@ export default {
       width: 50%;
       height: 100%;
       padding-left: 3vw;
+
       .title-list {
         width: 100%;
         justify-content: flex-start;
